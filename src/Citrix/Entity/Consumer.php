@@ -9,7 +9,7 @@ namespace Citrix\Entity;
  *
  * @uses \Citrix\Entity\EntityAbstract
  * @uses \Citrix\Entity\EntityAware
- *      
+ *
  */
 class Consumer extends EntityAbstract implements EntityAware
 {
@@ -17,56 +17,56 @@ class Consumer extends EntityAbstract implements EntityAware
   /**
    * Unique identifier, in Citrix World
    * this is called RegistrantKey or AtendeeKey
-   * 
+   *
    * @var integer
    */
   public $id;
 
   /**
    * First Name
-   * 
+   *
    * @var String
    */
   public $firstName;
 
   /**
    * Last Name
-   * 
+   *
    * @var String
    */
   public $lastName;
 
   /**
    * Email Address
-   * 
+   *
    * @var String
    */
   public $email;
 
   /**
    * Status of Consumer
-   * 
+   *
    * @var String
    */
   public $status;
 
   /**
    * Registration Date
-   * 
+   *
    * @var \DateTime
    */
   public $registrationDate;
 
   /**
    * Join U
-   * 
+   *
    * @var String
    */
   public $joinUrl;
 
   /**
    * Timezone
-   * 
+   *
    * @var String
    */
   public $timeZone = 'America/New_York';
@@ -80,22 +80,36 @@ class Consumer extends EntityAbstract implements EntityAware
   {
     $this->setClient($client);
   }
-  
+
   /*
    * (non-PHPdoc) @see \Citrix\Entity\EntityAware::populate()
    */
   public function populate()
   {
     $data = $this->getData();
-    
-    $this->firstName = $data['firstName'];
-    $this->lastName = $data['lastName'];
-    $this->email = $data['email'];
-    
+
+	if(array_key_exists('firstName', $data)){
+		$this->firstName = $data['firstName'];
+	} else if (isset($this->firstName)) {
+		$data['firstName'] = $this->firstName;
+	}
+
+	if(array_key_exists('lastName', $data)){
+    	$this->lastName = $data['lastName'];
+	} else if (isset($this->lastName)) {
+		$data['lastName'] = $this->firstName;
+	}
+
+	if(array_key_exists('email', $data)){
+    	$this->email = $data['email'];
+	} else if (isset($this->email)) {
+		$data['email'] = $this->email;
+	}
+
     if (isset($data['registrantKey'])) {
       $this->id = $data['registrantKey'];
     }
-    
+
     if (isset($data['status'])) {
       $this->status = $data['status'];
     }
@@ -121,12 +135,12 @@ class Consumer extends EntityAbstract implements EntityAware
 
   /**
    *
-   * @param String $email          
+   * @param String $email
    */
   public function setEmail($email)
   {
     $this->email = $email;
-    
+
     return $this;
   }
 
@@ -141,12 +155,12 @@ class Consumer extends EntityAbstract implements EntityAware
 
   /**
    *
-   * @param String $firstName          
+   * @param String $firstName
    */
   public function setFirstName($firstName)
   {
     $this->firstName = $firstName;
-    
+
     return $this;
   }
 
@@ -161,12 +175,12 @@ class Consumer extends EntityAbstract implements EntityAware
 
   /**
    *
-   * @param String $id          
+   * @param String $id
    */
   public function setId($id)
   {
     $this->id = $id;
-    
+
     return $this;
   }
 
@@ -181,12 +195,12 @@ class Consumer extends EntityAbstract implements EntityAware
 
   /**
    *
-   * @param String $joinUrl          
+   * @param String $joinUrl
    */
   public function setJoinUrl($joinUrl)
   {
     $this->joinUrl = $joinUrl;
-    
+
     return $this;
   }
 
@@ -201,12 +215,12 @@ class Consumer extends EntityAbstract implements EntityAware
 
   /**
    *
-   * @param String $lastName          
+   * @param String $lastName
    */
   public function setLastName($lastName)
   {
     $this->lastName = $lastName;
-    
+
     return $this;
   }
 
@@ -221,12 +235,12 @@ class Consumer extends EntityAbstract implements EntityAware
 
   /**
    *
-   * @param \DateTime $registrationDate          
+   * @param \DateTime $registrationDate
    */
   public function setRegistrationDate($registrationDate)
   {
     $this->registrationDate = $registrationDate;
-    
+
     return $this;
   }
 
@@ -241,12 +255,12 @@ class Consumer extends EntityAbstract implements EntityAware
 
   /**
    *
-   * @param String $status          
+   * @param String $status
    */
   public function setStatus($status)
   {
     $this->status = $status;
-    
+
     return $this;
   }
 
@@ -261,12 +275,12 @@ class Consumer extends EntityAbstract implements EntityAware
 
   /**
    *
-   * @param string $timeZone          
+   * @param string $timeZone
    */
   public function setTimeZone($timeZone)
   {
     $this->timeZone = $timeZone;
-    
+
     return $this;
   }
 }
